@@ -2,12 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bolirana</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1> Bolirana Familia Vargas </h1>
+<h1>🎯 Bolirana</h1>
 
 <div class="panel">
   <input id="objetivo" type="number" placeholder="Objetivo (5000 / 10000)">
@@ -15,12 +16,12 @@
 
 <div class="panel">
   <input id="nombre" placeholder="Jugador o Equipo">
-  <button id="btnAgregar">Agregar Participante</button>
+  <button id="btnAgregar">Agregar</button>
 </div>
 
 <div id="juego"></div>
 
-<div class="panel">
+<div class="panel botones-lanzar">
   <button onclick="lanzar(100)">+100</button>
   <button onclick="lanzar(200)">+200</button>
   <button onclick="lanzar(500)">+500</button>
@@ -34,7 +35,7 @@
 <div id="overlay" class="overlay">
   <div class="ruleta-box">
     <div id="ruleta-circular">
-      <canvas id="canvas-ruleta" width="300" height="300"></canvas>
+      <canvas id="canvas-ruleta"></canvas>
       <div class="puntero">▼</div>
     </div>
     <div id="resultado"></div>
