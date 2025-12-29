@@ -98,7 +98,6 @@ function ruleta(jugador, callback){
   const finalIndex = Math.floor(Math.random()*numOpciones);
   const vueltas = 5 + Math.floor(Math.random()*5);
 
-  // Ángulo corregido: puntero arriba y rotación horaria
   const angleFinal = 2*Math.PI*vueltas - (finalIndex * arc + arc/2);
 
   let rotation = 0;
@@ -108,23 +107,23 @@ function ruleta(jugador, callback){
   function drawRuleta(rot){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.save();
-    ctx.translate(150,150);
+    ctx.translate(canvas.width/2,canvas.height/2);
     ctx.rotate(rot);
     for(let i=0;i<numOpciones;i++){
       ctx.beginPath();
       ctx.moveTo(0,0);
-      ctx.arc(0,0,150,i*arc,(i+1)*arc);
+      ctx.arc(0,0,canvas.width/2,i*arc,(i+1)*arc);
       ctx.fillStyle = i%2===0?"#ff4081":"#ff80ab";
       ctx.fill();
       ctx.strokeStyle="#000";
       ctx.stroke();
       ctx.fillStyle="#000";
-      ctx.font="16px Arial";
+      ctx.font=`${canvas.width/15}px Arial`;
       ctx.textAlign="center";
       ctx.textBaseline="middle";
       const angle = i*arc + arc/2;
-      const x = Math.cos(angle)*100;
-      const y = Math.sin(angle)*100;
+      const x = Math.cos(angle)*(canvas.width/2*0.65);
+      const y = Math.sin(angle)*(canvas.width/2*0.65);
       ctx.fillText(opciones[i],x,y);
     }
     ctx.restore();
