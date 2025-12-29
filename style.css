@@ -1,3 +1,4 @@
+/* General */
 body {
   background: #111;
   color: white;
@@ -24,6 +25,7 @@ button {
   cursor: pointer;
 }
 
+/* Juego */
 #juego {
   display: flex;
   justify-content: center;
@@ -34,7 +36,8 @@ button {
   border: 1px solid #444;
   padding: 10px;
   margin: 5px;
-  width: 140px;
+  width: 40vw; /* adaptable */
+  max-width: 140px;
 }
 
 .activo {
@@ -46,6 +49,14 @@ button {
   opacity: 0.6;
 }
 
+/* Botones lanzar */
+.botones-lanzar button {
+  width: 22vw;
+  max-width: 100px;
+  margin: 5px;
+}
+
+/* Overlay ruleta */
 .overlay {
   display: none;
   position: fixed;
@@ -55,33 +66,36 @@ button {
   justify-content: center;
 }
 
+/* Caja ruleta */
 .ruleta-box {
   background: #222;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
   max-width: 90vw;
 }
 
+/* Ruleta */
 #ruleta-circular {
   position: relative;
   width: 80vw;
-  max-width: 300px;
   height: 80vw;
+  max-width: 300px;
   max-height: 300px;
   margin: 0 auto;
 }
 
 canvas#canvas-ruleta {
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
+/* Puntero */
 .puntero {
   position: absolute;
   top: 50%;
-  right: -10%;
+  right: -12%;
   transform: translateY(-50%) rotate(180deg);
   font-size: 10vw;
   max-font-size: 30px;
@@ -89,6 +103,7 @@ canvas#canvas-ruleta {
   z-index: 10;
 }
 
+/* Resultado */
 #resultado {
   margin-top: 10px;
   font-size: 5vw;
@@ -97,15 +112,9 @@ canvas#canvas-ruleta {
 
 /* Media query para pantallas grandes */
 @media(min-width:600px){
-  #ruleta-circular {
-    width: 300px;
-    height: 300px;
-  }
-  .puntero {
-    font-size: 30px;
-    right: -20px;
-  }
-  #resultado {
-    font-size: 24px;
-  }
+  .jugador { width: 140px; }
+  .botones-lanzar button { width: 100px; }
+  #ruleta-circular { width: 300px; height: 300px; }
+  .puntero { font-size: 30px; right: -20px; }
+  #resultado { font-size: 24px; }
 }
