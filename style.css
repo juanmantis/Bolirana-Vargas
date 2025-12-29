@@ -1,0 +1,89 @@
+body {
+  background: #111;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.panel {
+  margin: 10px;
+}
+
+input, button {
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+button {
+  background: #ff4081;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#juego {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.jugador {
+  border: 1px solid #444;
+  padding: 10px;
+  margin: 5px;
+  width: 140px;
+}
+
+.activo {
+  border: 2px solid #00e5ff;
+}
+
+.ganador {
+  border: 2px solid gold;
+  opacity: 0.6;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.ruleta-box {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#ruleta-circular {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+canvas#canvas-ruleta {
+  border-radius: 50%;
+}
+
+.puntero {
+  position: absolute;
+  top: 50%;
+  right: -20px;          /* al lado derecho de la ruleta */
+  transform: translateY(-50%) rotate(205deg); /* centra verticalmente y gira la flecha */
+  font-size: 30px;
+  color: gold;
+  z-index: 10;
+}
+
+
+
+#resultado {
+  margin-top: 10px;
+  font-size: 24px;
+}
