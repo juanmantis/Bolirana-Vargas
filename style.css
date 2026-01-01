@@ -1,134 +1,95 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
-  margin: 0;
+  font-family: Arial, sans-serif;
   background: #111;
-  color: #fff;
+  color: white;
+  text-align: center;
 }
 
-/* CONTENEDOR PRINCIPAL */
-.contenedor {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
-
-/* PANEL */
 .panel {
-  background: #1c1c1c;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
+  margin: 10px;
 }
 
-/* BOTONES */
-.panel button {
-  background: #ff3d7f;
-  border: none;
-  color: #fff;
-  padding: 10px 14px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: transform 0.15s, opacity 0.15s;
+input, button {
+  padding: 8px;
+  margin: 4px;
 }
 
-.panel button:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-}
-
-/* BOTÓN FALLÓ */
-.panel button:last-child {
-  background: #555;
-}
-
-/* LISTA JUGADORES */
-.jugador {
+.botones button {
   background: #222;
-  padding: 10px;
-  margin: 6px 0;
-  border-radius: 8px;
+  color: white;
+  border: 1px solid #555;
+  cursor: pointer;
+}
+
+#juego {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.jugador.activo {
-  border: 2px solid #ff3d7f;
+.jugador {
+  border: 2px solid #444;
+  padding: 10px;
+  margin: 6px;
+  width: 150px;
 }
 
-.jugador.ganador {
-  background: #2e7d32;
+.activo {
+  border-color: yellow;
 }
 
-/* ====== RULETA ====== */
-.ruleta-overlay {
+.ganador {
+  background: green;
+}
+
+/* OVERLAY RULETA */
+#overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,.8);
   display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.ruleta-box {
+  text-align: center;
+}
+
+/* RULETA */
+#ruleta {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 6px solid white;
+  position: relative;
+  animation: girar 3s ease-out forwards;
+}
+
+.sector {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-}
-
-.ruleta {
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  border: 8px solid #ff3d7f;
-  background: conic-gradient(
-    #ff5252 0deg 60deg,
-    #ff9800 60deg 120deg,
-    #ffeb3b 120deg 180deg,
-    #4caf50 180deg 240deg,
-    #03a9f4 240deg 300deg,
-    #9c27b0 300deg 360deg
-  );
-  position: relative;
-}
-
-/* FLECHA */
-.ruleta::after {
-  content: "";
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-bottom: 20px solid #fff;
-}
-
-/* TEXTO CENTRO */
-.ruleta span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #000;
-  padding: 10px 16px;
-  border-radius: 20px;
   font-weight: bold;
-  font-size: 18px;
 }
 
-/* ANIMACIÓN */
-.girar {
-  animation: girar 2.8s ease-out forwards;
-}
+.sector:nth-child(1) { top: 0; left: 50%; background: #c0392b; }
+.sector:nth-child(2) { top: 50%; left: 50%; background: #e67e22; }
+.sector:nth-child(3) { top: 50%; left: 0; background: #9b59b6; }
+.sector:nth-child(4) { top: 0; left: 0; background: #2980b9; }
 
 @keyframes girar {
   from { transform: rotate(0deg); }
-  to { transform: rotate(var(--rotacion)); }
+  to { transform: rotate(1080deg); }
+}
+
+#resultado {
+  margin-top: 15px;
+  font-size: 20px;
 }
