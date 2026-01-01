@@ -1,120 +1,134 @@
-/* General */
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-  background: #111;
-  color: white;
-  font-family: Arial;
-  text-align: center;
   margin: 0;
-  padding: 0;
+  background: #111;
+  color: #fff;
 }
 
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* PANEL */
 .panel {
-  margin: 10px;
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
-input, button {
-  padding: 10px;
-  font-size: 16px;
-  margin: 5px;
-}
-
-button {
-  background: #ff4081;
+/* BOTONES */
+.panel button {
+  background: #ff3d7f;
   border: none;
-  color: white;
+  color: #fff;
+  padding: 10px 14px;
+  margin: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: transform 0.15s, opacity 0.15s;
 }
 
-/* Juego */
-#juego {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.panel button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
 }
 
+/* BOTÓN FALLÓ */
+.panel button:last-child {
+  background: #555;
+}
+
+/* LISTA JUGADORES */
 .jugador {
-  border: 1px solid #444;
-  padding: 10px;
-  margin: 5px;
-  width: 40vw; /* adaptable */
-  max-width: 140px;
-}
-
-.activo {
-  border: 2px solid #00e5ff;
-}
-
-.ganador {
-  border: 2px solid gold;
-  opacity: 0.6;
-}
-
-/* Botones lanzar */
-.botones-lanzar button {
-  width: 22vw;
-  max-width: 100px;
-  margin: 5px;
-}
-
-/* Overlay ruleta */
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.8);
-  align-items: center;
-  justify-content: center;
-}
-
-/* Caja ruleta */
-.ruleta-box {
   background: #222;
   padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 90vw;
+  margin: 6px 0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Ruleta */
-#ruleta-circular {
-  position: relative;
-  width: 80vw;
-  height: 80vw;
-  max-width: 300px;
-  max-height: 300px;
-  margin: 0 auto;
+.jugador.activo {
+  border: 2px solid #ff3d7f;
 }
 
-canvas#canvas-ruleta {
+.jugador.ganador {
+  background: #2e7d32;
+}
+
+/* ====== RULETA ====== */
+.ruleta-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
-/* Puntero */
-.puntero {
+.ruleta {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 8px solid #ff3d7f;
+  background: conic-gradient(
+    #ff5252 0deg 60deg,
+    #ff9800 60deg 120deg,
+    #ffeb3b 120deg 180deg,
+    #4caf50 180deg 240deg,
+    #03a9f4 240deg 300deg,
+    #9c27b0 300deg 360deg
+  );
+  position: relative;
+}
+
+/* FLECHA */
+.ruleta::after {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 20px solid #fff;
+}
+
+/* TEXTO CENTRO */
+.ruleta span {
   position: absolute;
   top: 50%;
-  right: -12%;
-  transform: translateY(-50%) rotate(180deg);
-  font-size: 10vw;
-  max-font-size: 30px;
-  color: gold;
-  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-/* Resultado */
-#resultado {
-  margin-top: 10px;
-  font-size: 5vw;
-  max-font-size: 24px;
+/* ANIMACIÓN */
+.girar {
+  animation: girar 2.8s ease-out forwards;
 }
 
-/* Media query para pantallas grandes */
-@media(min-width:600px){
-  .jugador { width: 140px; }
-  .botones-lanzar button { width: 100px; }
-  #ruleta-circular { width: 300px; height: 300px; }
-  .puntero { font-size: 30px; right: -20px; }
-  #resultado { font-size: 24px; }
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--rotacion)); }
 }
