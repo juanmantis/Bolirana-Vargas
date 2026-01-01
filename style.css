@@ -3,6 +3,8 @@ body {
   color: white;
   font-family: Arial;
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .panel {
@@ -44,7 +46,6 @@ button {
   opacity: 0.6;
 }
 
-/* RULETA */
 .overlay {
   display: none;
   position: fixed;
@@ -56,16 +57,55 @@ button {
 
 .ruleta-box {
   background: #222;
-  padding: 30px;
+  padding: 20px;
   border-radius: 10px;
-  font-size: 28px;
+  text-align: center;
+  max-width: 90vw;
 }
 
-.girar {
-  animation: spin 0.4s linear infinite;
+#ruleta-circular {
+  position: relative;
+  width: 80vw;
+  max-width: 300px;
+  height: 80vw;
+  max-height: 300px;
+  margin: 0 auto;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+canvas#canvas-ruleta {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.puntero {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%) rotate(180deg);
+  font-size: 10vw;
+  max-font-size: 30px;
+  color: gold;
+  z-index: 10;
+}
+
+#resultado {
+  margin-top: 10px;
+  font-size: 5vw;
+  max-font-size: 24px;
+}
+
+/* Media query para pantallas grandes */
+@media(min-width:600px){
+  #ruleta-circular {
+    width: 300px;
+    height: 300px;
+  }
+  .puntero {
+    font-size: 30px;
+    right: -20px;
+  }
+  #resultado {
+    font-size: 24px;
+  }
 }
