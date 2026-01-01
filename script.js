@@ -5,151 +5,74 @@ let ganadores = [];
 let turno = 0;
 let bola = 0;
 let metio = false;
-let girando = false;
 
-document.getElementById("btnAgregar").addEventListener("click", agregar);
-
-function agregar() {
-  const input = document.getElementById("nombre");
-  const n = input.value.trim();
+// AGREGAR JUGADOR
+document.getElementById("btnAgregar").addEventListener("click", () => {
+  const n = nombre.value.trim();
   if (!n) return;
   nombres.push(n);
   puntos.push(0);
-  input.value = "";
+  nombre.value = "";
   mostrar();
-}
+});
 
 function lanzar(valor) {
-  if (nombres.length === 0 || girando) return;
-  if (ganadores.includes(turno)) { siguienteTurno(); return; }
+  if (ganadores.includes(turno)) {
+    siguienteTurno();
+    return;
+  }
 
   bola++;
   if (valor > 0) metio = true;
+
   puntos[turno] += valor;
 
-  if (bola === 6) {
-    if (!metio && !ganadores.includes(turno)) {
-      ruleta(turno, siguienteTurno);
-    } else {
-      siguienteTurno();
-    }
-  }
+  if (bola === 6) siguienteTurno();
   mostrar();
 }
 
 function siguienteTurno() {
+  if (!metio && !ganadores.includes(turno)) ruleta();
+
   bola = 0;
   metio = false;
-  do {
-    turno = (turno + 1) % nombres.length;
-  } while (ganadores.includes(turno) && ganadores.length < nombres.length);
-  mostrar();
+  turno = (turno + 1) % nombres.length;
 }
 
 function mostrar() {
-  const juego = document.getElementById("juego");
   juego.innerHTML = "";
-  nombres.forEach((n,i)=>{
+  nombres.forEach((n, i) => {
     juego.innerHTML += `
-      <div class="jugador ${i===turno?'activo':''} ${ganadores.includes(i)?'ganador':''}">
+      <div class="jugador ${i === turno ? 'activo' : ''}">
         <b>${n}</b><br>
-        Puntos: ${puntos[i]}<br>
-        Bola: ${i===turno?bola:"-"}
-      </div>
-    `;
+        ${puntos[i]} pts<br>
+        Bola: ${i === turno ? bola : "-"}
+      </div>`;
   });
-  actualizarRanking();
-  verificarObjetivo();
+
+  ranking.innerHTML = nombres
+    .map((n,i)=>({n,p:puntos[i]}))
+    .sort((a,b)=>b.p-a.p)
+    .map((x,i)=>`${i+1}° ${x.n} — ${x.p}`)
+    .join("<br>");
 }
 
-function actualizarRanking() {
-  const ranking = document.getElementById("ranking");
-  const orden = nombres.map((n,i)=>({n,p:puntos[i]})).sort((a,b)=>b.p - a.p);
-  ranking.innerHTML = orden.map((x,i)=>`${i+1}° ${x.n} — ${x.p}`).join("<br>");
-}
-
-function verificarObjetivo() {
-  const obj = Number(document.getElementById("objetivo").value);
-  if (!obj) return;
-  puntos.forEach((p,i)=>{
-    if(p>=obj && !ganadores.includes(i)){
-      ganadores.push(i);
-      alert(`🏆 ${ganadores.length}° lugar: ${nombres[i]}`);
-    }
-  });
-}
-
-// RULETA PRECISA
-function ruleta(jugador, callback){
-  if(girando) return;
-  girando = true;
-
-  const opciones = [-100,-150,-200,-300];
-  const numOpciones = opciones.length;
-  const overlay = document.getElementById("overlay");
-  const canvas = document.getElementById("canvas-ruleta");
-  const ctx = canvas.getContext("2d");
-  const resultado = document.getElementById("resultado");
+// RULETA REAL
+function ruleta() {
+  const opciones = [-100, -150, -200, -300];
+  const resultadoFinal = opciones[Math.floor(Math.random()*opciones.length)];
 
   overlay.style.display = "flex";
   resultado.innerText = "Girando...";
 
-  const arc = 2*Math.PI/numOpciones;
-  const finalIndex = Math.floor(Math.random()*numOpciones);
-  const vueltas = 5 + Math.floor(Math.random()*5);
+  setTimeout(() => {
+    resultado.innerText = "Resultado: " + resultadoFinal;
+    puntos[turno] += resultadoFinal;
+    if (puntos[turno] < 0) puntos[turno] = 0;
+    mostrar();
 
-  const angleFinal = 2*Math.PI*vueltas - (finalIndex * arc + arc/2);
-
-  let rotation = 0;
-  const totalFrames = 150;
-  let frame = 0;
-
-  function drawRuleta(rot){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.save();
-    ctx.translate(canvas.width/2,canvas.height/2);
-    ctx.rotate(rot);
-    for(let i=0;i<numOpciones;i++){
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.arc(0,0,canvas.width/2,i*arc,(i+1)*arc);
-      ctx.fillStyle = i%2===0?"#ff4081":"#ff80ab";
-      ctx.fill();
-      ctx.strokeStyle="#000";
-      ctx.stroke();
-      ctx.fillStyle="#000";
-      ctx.font=`${canvas.width/15}px Arial`;
-      ctx.textAlign="center";
-      ctx.textBaseline="middle";
-      const angle = i*arc + arc/2;
-      const x = Math.cos(angle)*(canvas.width/2*0.65);
-      const y = Math.sin(angle)*(canvas.width/2*0.65);
-      ctx.fillText(opciones[i],x,y);
-    }
-    ctx.restore();
-  }
-
-  function animate(){
-    frame++;
-    const t = frame/totalFrames;
-    const ease = 1 - Math.pow(1-t,3);
-    rotation = angleFinal * ease;
-    drawRuleta(rotation);
-    if(frame<totalFrames){
-      requestAnimationFrame(animate);
-    } else {
-      const r = opciones[finalIndex];
-      resultado.innerText = "Resultado: "+r;
-      puntos[jugador]+=r;
-      if(puntos[jugador]<0) puntos[jugador]=0;
-      mostrar();
-      setTimeout(()=>{
-        overlay.style.display="none";
-        girando = false;
-        if(callback) callback();
-      },500);
-    }
-  }
-
-  animate();
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 2000);
+  }, 3000);
 }
