@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolirana</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Bolirana</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🎯 Bolirana Familia Vargas </h1>
+<h1>🎯 Bolirana</h1>
 
 <div class="panel">
   <input id="objetivo" type="number" placeholder="Objetivo (5000 / 10000)">
@@ -21,25 +20,27 @@
 
 <div id="juego"></div>
 
-<div class="panel botones-lanzar">
+<div class="panel botones">
   <button onclick="lanzar(30)">+30</button>
   <button onclick="lanzar(50)">+50</button>
   <button onclick="lanzar(100)">+100</button>
   <button onclick="lanzar(150)">+150</button>
   <button onclick="lanzar(200)">+200</button>
-  <button onclick="lanzar(200)">+300</button>
+  <button onclick="lanzar(500)">+500</button>
   <button onclick="lanzar(0)">❌ Falló</button>
 </div>
 
 <h3>🏆 Ranking</h3>
 <div id="ranking"></div>
 
-<!-- RULETA CIRCULAR -->
-<div id="overlay" class="overlay">
+<!-- RULETA -->
+<div id="overlay">
   <div class="ruleta-box">
-    <div id="ruleta-circular">
-      <canvas id="canvas-ruleta"></canvas>
-      <div class="puntero">▼</div>
+    <div id="ruleta">
+      <div class="sector">-100</div>
+      <div class="sector">-150</div>
+      <div class="sector">-200</div>
+      <div class="sector">-300</div>
     </div>
     <div id="resultado"></div>
   </div>
@@ -48,5 +49,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
