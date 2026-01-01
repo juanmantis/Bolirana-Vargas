@@ -84,7 +84,7 @@ function ruleta(jugador, callback){
   if(girando) return;
   girando = true;
 
-  const opciones = [-100,-150,-200,-300];
+  const opciones = [-30,-50,-100,-150,-200,-300]
   const numOpciones = opciones.length;
   const overlay = document.getElementById("overlay");
   const canvas = document.getElementById("canvas-ruleta");
@@ -154,3 +154,4 @@ function ruleta(jugador, callback){
 
   animate();
 }
+
