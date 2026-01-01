@@ -1,7 +1,7 @@
 body {
-  font-family: Arial, sans-serif;
   background: #111;
   color: white;
+  font-family: Arial;
   text-align: center;
 }
 
@@ -10,14 +10,15 @@ body {
 }
 
 input, button {
-  padding: 8px;
-  margin: 4px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
 }
 
-.botones button {
-  background: #222;
+button {
+  background: #ff4081;
+  border: none;
   color: white;
-  border: 1px solid #555;
   cursor: pointer;
 }
 
@@ -28,68 +29,43 @@ input, button {
 }
 
 .jugador {
-  border: 2px solid #444;
+  border: 1px solid #444;
   padding: 10px;
-  margin: 6px;
-  width: 150px;
+  margin: 5px;
+  width: 140px;
 }
 
 .activo {
-  border-color: yellow;
+  border: 2px solid #00e5ff;
 }
 
 .ganador {
-  background: green;
-}
-
-/* OVERLAY RULETA */
-#overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-.ruleta-box {
-  text-align: center;
+  border: 2px solid gold;
+  opacity: 0.6;
 }
 
 /* RULETA */
-#ruleta {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  border: 6px solid white;
-  position: relative;
-  animation: girar 3s ease-out forwards;
-}
-
-.sector {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  display: flex;
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
   align-items: center;
   justify-content: center;
-  font-weight: bold;
 }
 
-.sector:nth-child(1) { top: 0; left: 50%; background: #c0392b; }
-.sector:nth-child(2) { top: 50%; left: 50%; background: #e67e22; }
-.sector:nth-child(3) { top: 50%; left: 0; background: #9b59b6; }
-.sector:nth-child(4) { top: 0; left: 0; background: #2980b9; }
+.ruleta-box {
+  background: #222;
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 28px;
+}
 
-@keyframes girar {
+.girar {
+  animation: spin 0.4s linear infinite;
+}
+
+@keyframes spin {
   from { transform: rotate(0deg); }
-  to { transform: rotate(1080deg); }
-}
-
-#resultado {
-  margin-top: 15px;
-  font-size: 20px;
+  to { transform: rotate(360deg); }
 }
