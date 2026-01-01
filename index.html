@@ -20,20 +20,27 @@
 
 <div id="juego"></div>
 
-<div class="panel botones">
+<div class="panel">
   <button onclick="lanzar(30)">+30</button>
   <button onclick="lanzar(50)">+50</button>
   <button onclick="lanzar(100)">+100</button>
   <button onclick="lanzar(150)">+150</button>
   <button onclick="lanzar(200)">+200</button>
-  <button onclick="lanzar(500)">+500</button>
+  <button onclick="lanzar(500)">+300</button>
   <button onclick="lanzar(0)">❌ Falló</button>
 </div>
 
 <h3>🏆 Ranking</h3>
 <div id="ranking"></div>
 
+<!-- RULETA SIMPLE -->
+<div id="overlay" class="overlay">
+  <div class="ruleta-box">
+    <div id="ruleta">🎡</div>
+    <div id="resultado"></div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
-
